@@ -1,4 +1,5 @@
 # Description
+## [ UNIX ONLY ]
 This is a simple python script that intercept raw data being
 
 transmitted on a network interface and simply write the data 
@@ -7,7 +8,7 @@ to a file.The script was designed to only intercept
  
 Internet Protocol version 4 packet.The 
  
-ARP packet being transimtted is encoded and encrypted
+IPV4 packet being transimtted is encoded and encrypted
  
 so the script decodes it with utf-8,if the data cannot 
  
@@ -23,4 +24,5 @@ messages are not.
 ##### -You must have python installed on the machine(On Unix based computers python is pre-installed).
 ##### -The script will require root privileges because it will access system resources.
 ##### -Open the terminal and run "sudo python IPV4_PACKET.py" , authenticate for the script to start working.
-##### -Whenever data is written to the file it's printed out.
+##### -You will be prompt to choose your desired available Interface on the computer[Available interfaces will be displayed]
+##### -Whenever data is written to the file , it's printed out.
