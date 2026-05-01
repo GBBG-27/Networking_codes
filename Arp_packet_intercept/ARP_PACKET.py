@@ -1,65 +1,126 @@
 #!/bin/python3
 import socket
-# This is a simple script that is that itercept only ARP(Address Resolution Protocol)
-# packets on a network  interface,it
-# tries to decode it with utf-8 and ignores the bytes that can not 
-# be decoded
+
+# This is a simple script that intercept a network interface 
+# and capture the raw packet being transmitted on the network 
+# interface.A socket is bind to a network interface and captures any 
+# ARP(Address Resoluiton Protocol) being transmitted on the network
 
 
-try: # This is for catching errors and exceptions 
 
-     # this returns a tuple of the network inteface and is's index on the machine
-     name_index = socket.if_nameindex()
+# global variables
+INTERFACE = None 
+ETHERTYPE = None
 
-     # this will loop through the name and interface returned from name_index
-     for inter_info in name_index:
-
-           index = inter_info[0] # the interface index retrieved
-           name = inter_info[1] # the interface name retrieved
-           
-           # cross-check if the name is "eth0"
-           # you can change this to your prefered interface 
-           if name == 'eth0':
-      
-                INTERFACE = name # assign a variable to the interface name
-                ETHERTYPE = socket.ETHERTYPE_ARP # assign a variable to the ETHERTYPE to use
+def  inter_ether():
+  """
+       The purpose of this function is to set
+       the values of the interface and ethertype
+       that the script will use
+ 
+  """
+  
+  try: # catching exceptions and errors
+        name_index = socket.if_nameindex() # return the system's interfaces
+        interface_database = {} # stores the interfaces
+        interface_index = []   # store the index of the interfaces
+ 
+        # loop through the interfaces
+        for inter_info in name_index: 
                 
-except KeyboardInterrupt: # catching keyboard Interruption
-       print('\n')
-except Exception as exc: # catching any other exception
-       print(exc)
+              index = inter_info[0] # interface index
+              name = inter_info[1] # interface name
+           
+              # stores the interface with the index into interface_database
+              interface_database[index]  = name 
+              # stores the interface index into interface_index
+              interface_index.append(index)
+      
+        print("Available Interfaces")
+        print("`" * 20)
+        
+        # print out available interfaces
+        for ind , name  in interface_database.items():
+              print(f">> [{ind}] : [{name}]")
 
 
-# this will catch exceptions and errors
-try:
-    # a context manager that create a socket object and assign a name to it   
-    with socket.socket(socket.AF_PACKET , socket.SOCK_RAW) as sock:
+        print("\nInterface")
+        print('`' * 9)
+     
+        try:  # catching exceptions and errors 
+                  opt = int(input('>> '))
+        except ValueError:
+                  opt = None
+         
+        # a conditional statements that verifies the answer 
+        # and compares it to interface_index  
+        if opt in interface_index and opt is not None: 
+                  
+                  interface = interface_database[opt] # get the database
+                  ether_type = socket.ETHERTYPE_ARP # the ethertype to use
+                  
+                  # this will modify the global variable 
+                  global INTERFACE
+                  INTERFACE = interface
 
-            # cross-check if there is a value in interface 
-            if INTERFACE is not None:
+                  # this will modify the global variable
+                  global ETHERTYPE
+                  ETHERTYPE = ether_type              
+        else:
+                  print("Invalid arguments")
+  except KeyboardInterrupt:
+                  print('\nKeyboard Interrupted')
+  except Exception as exc:
+                  print(exc) 
 
-                # bind the socket object with the interface name and ethertype  
-                sock.bind((INTERFACE , ETHERTYPE)) 
+   
+inter_ether() # running the function
 
-                # open a file and write the decoded data to it
-                # Note: the file must be in the current directory or location where the script is 
-                with open("RECEIVING_ARP_PACKETS.txt"  , 'w' )  as packet_file:
+def recv_and_write():
+    """
+       The function receives the raw packet and
+       write is to a file and print it out everytime 
+       data is written to the file
 
-                        # some extra data written to the file
-                        packet_file.write('ARP_PACKETS\n')
-                        packet_file.write(f'{"*" * 13}\n')
+    """
+    # catching exceptions and errors
+    try:
 
-                        # a loop to receive the packet,decode it and send it to the file 
-                        while True:
+       # a conditional statement that verifies the interface and ethertype 
+       if INTERFACE is not None and ETHERTYPE is not None:
+             
+             # create the socket object and bind it to the interface and the ethertype
+             sock = socket.socket(socket.AF_PACKET , socket.SOCK_RAW)
+             sock.bind(( INTERFACE , ETHERTYPE ))
+             
+             # the file that will be use to receive the raw packet 
+             with open('RECEIVING_ARP_PACKETS.txt' , 'a') as packet_file:
+                
+                    packet_file.write("ARP_PACKET\n") # write to the file 
+                    packet_file.write(f'{"*" * 10}\n') # write to the file
+               
+                    print("\n")
 
-                              recv_packet = sock.recv(100024) # receive the packet
-                              decode_packets = recv_packet.decode(errors='ignore') # decode the packet 
-                              n_bytes = packet_file.write(decode_packets) # write it to the file
-                              print(f'Sent [{n_bytes}] to file') # this executes every time data is written to the file
+                    # a loop to continueously receive data and written to the file
+                    while True:
+                       
+                       # catching exceptions and errors
+                       try:    
+                             recv_data = sock.recv(1024) # receive data
+                             decode_data = recv_data.decode(errors='ignore') # decode data
+                             n_bytes = packet_file.write(decode_data) # send data
+                             print(f"sent [{n_bytes}] to file") # print number of bytes sent 
+                       
+                       except BrokenPipeError:
+                             print("Peer error") 
+                       except Exception as exc:
+                             print(exc)
 
-except KeyboardInterrupt: # catching keyboard interruption
-      print('\n')
-except Exception as exc: # catching any other error
-      print(exc)
+       else:
+              pass                   
+    
+    except KeyboardInterrupt:
+              print('Keyboard Interrupted')
+       
 
-
+recv_and_write()  # run the function
