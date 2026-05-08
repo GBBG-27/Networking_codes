@@ -21,7 +21,7 @@
  messages are not.
 
 ## Steps 
-##### -You must have python installed on the machine(On Unix based computers python is pre-installed)
+##### -You must have python installed on the machine(On Unix based computers,python is pre-installed)
 ##### -The script will require root privileges because it will access system resources
 ##### -Open the terminal and run "sudo python ARP_PACKET.py" , authenticate for the script to start working
 ##### -Whenever data is written to the file it's printed out
