@@ -21,7 +21,7 @@ encrypted so you won't be able to read , but sometimes,some
 messages are not.
 
 ## Steps 
-##### -You must have python installed on the machine(On Unix based computers python is pre-installed).
+##### -You must have python installed on the machine(On Unix based computers,python is pre-installed).
 ##### -The script will require root privileges because it will access system resources.
 ##### -Open the terminal and run "sudo python IPV4_PACKET.py" , authenticate for the script to start working.
 ##### -You will be prompt to choose your desired available Interface on the computer[Available interfaces will be displayed]
