@@ -94,7 +94,7 @@ def recv_and_write():
              sock.bind(( INTERFACE , ETHERTYPE ))
              
              # the file that will be use to receive the raw packet 
-             with open('RECEIVING_ARP_PACKETS.txt' , 'a') as packet_file:
+             with open('RECEIVING_ARP_PACKET.txt' , 'a') as packet_file:
                 
                     packet_file.write("ARP_PACKET\n") # write to the file 
                     packet_file.write(f'{"*" * 10}\n') # write to the file
