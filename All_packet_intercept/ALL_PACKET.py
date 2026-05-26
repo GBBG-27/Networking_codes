@@ -14,10 +14,10 @@ def socket_fac( inter ):
          and return the socket object the script will 
          use for the interception
       """
-      try: # catching errors and exception
+      try: # catching errors and exceptions
             
             sock = socket.socket(socket.AF_PACKET , socket.SOCK_RAW , socket.htons(0x0003)) # socket object 
-            sock.bind((inter , 0)) # bind the interface with the ether-type
+            sock.bind((inter , 0)) # bind the interface with the ether-type to the socket
       
             return sock # return the socket object
       
@@ -28,30 +28,30 @@ def socket_fac( inter ):
 def recv_packet():
       """
          This function will be respondsible for capturing
-         the raw data on the network and continueouselly write it to 
+         the raw data on the network and continueousely write it to 
          a file
       """
       
-      name_index = socket.if_nameindex() # system interface with their indexs
+      name_index = socket.if_nameindex() # system interface with their indexes
       interface_store = {} # stores the interface 
       
       print("Available inteface") 
       print("`" * 18)
 
-      # loop through the system inteface and store them 
+      # loop through the system interface and store them 
       for interface in name_index:
             
             index = interface[0] # interface name
             name = interface[1] # interface index
             
-            interface_store[index] = name
+            interface_store[index] = name # store the interface 
             
             print(f">> [{index}] : [{name}]") # print the interface out
       
       
       try: # catch errors and exceptions
 
-        # this answer will be used to choose the interface name 
+        # this answer will choose the interface  
         answer = int(input("\nInterface: "))
         print('\r')      
 
@@ -63,7 +63,7 @@ def recv_packet():
                 
                 c_sock = socket_fac(inter) # retrieve the socket object
 
-                # open a file and write the receivd data to it 
+                # open a file and write the received data to it 
                 with open("RECEIVING_ALL_PACKET.txt" , 'w') as packet_file:
                       
                          # write some extra data to the file 
