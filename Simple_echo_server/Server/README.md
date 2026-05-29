@@ -29,4 +29,15 @@ not close,it just closes that specific address and still listens for more connec
 
 ## Usage
 
-#### - First download the script 
+#### - First download the script  [ Download the repo ]
+#### - Open a terminal within the directory containing the script
+#### - Run the script [run python Server.py]
+#### - You will be prompt to enter the hostname [Type a legit ip and press enter]
+#### - You will be asked second time to enter the port number [Enter the port and press enter]
+#### - The server starts listening on the given address 
+#### - When a connection is made,the address will be prited out that it connected
+#### - With the connection,data can be exchanged
+#### - When the client sends data it will be printed out
+#### - After that the server echoes back the data while printing the number of bytes sent out
+#### - When the client closes it's connection,the server will print that that particular client closed it's connection
+#### - At this point the server does not close,it still lieten for any connecton
