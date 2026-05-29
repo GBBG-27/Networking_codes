@@ -1,21 +1,32 @@
 ## Description
 
-This is a simple server written in in python that
+This is a simple server written in  python that
 
-echo back data sent to it.When the script is run 
+echoes back data sent to it.When the script starts 
 
-you will be promt to enter the IP ADDRESS and the 
+you will be prompt to enter an `IP ADDRESS` and a 
 
-port number,the script will start to listen on the 
+`PORT` number,after you give the necessary details the script 
 
-address and port given.When a connection is made,
+will start to listen on the address given.When a connection is made,
 
-the address with port will be printed out,it then waits
+the address of the connection will be printed out,it then waits
 
 for data from the other end (client).When the client sends data,
 
-it will be printed out and then send it back and then print 
+it will be printed out and then send it back,it then print 
 
-the number of bytes sent .Data can be sent and received contineously.
+the number of bytes sent.Data can be sent and received continuously.
 
-The server closes when 
+The server will run forever unless nanually stopped.With a connection made,
+
+data can be exchanged,when the client closes its connection or aborts,it will be
+
+printed out that a particular address closed the connection,here the server does
+
+not close,it just closes that specific address and still listens for more connections.
+
+
+## Usage
+
+#### - First download the script 
