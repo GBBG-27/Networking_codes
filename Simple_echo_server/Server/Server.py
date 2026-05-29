@@ -49,24 +49,31 @@ def client_connection():
                                                     data_store = {}
    
                                                     while True:
-                                                               
+                                                                  
+                                                                  try:      
                                                                           recv_data = connection.recv(102442)
-           
+                                                                          
+
                                                                           if len(recv_data) != 0:
                              
-                                                                                        decode_recv_data = recv_data.decode(encoding='utf-8')
-                                                                                        print(f">> Client request: {decode_recv_data}")
+                                                                                      decode_recv_data = recv_data.decode(encoding='utf-8')
+                                                                                      print(f">> Client request: {decode_recv_data}")
            
-                                                                                        data_store[address[0]] = decode_recv_data
+                                                                                      data_store[address[0]] = decode_recv_data
              
-                                                                                        echoed_data = decode_recv_data.encode(encoding='utf-8')
-                                                                                        n_bytes = connection.send(echoed_data)
-                                                                                        print(F">> [{n_bytes}] bytes sent to client\n")
+                                                                                      echoed_data = decode_recv_data.encode(encoding='utf-8')
+                                                                                      n_bytes = connection.send(echoed_data)
+                                                                                      print(F">> [{n_bytes}] bytes sent to client\n")
+                                                                                 
                                                                           else:
-                                                                                        print(f'[{host}:{port}] connection closed')
-                                                                                        break
-                                                               
-                               else:  
+                                                                                      print(f"[{host}:{port}] connection closed")       
+                                                                                      break
+                      
+                                                                  except Exception:
+                                                                  
+                                                                                      print(f"[{host}:{port}] connection closed")       
+                                                                                      break
+                               else:         
                                        print("\n[ Invalid argument ]")           
                                                      
                   else:
@@ -75,6 +82,9 @@ def client_connection():
                                              
              except KeyboardInterrupt:
                           print("\r")          
+                          
+                          
+                          
 
 client_connection()      
-      
+
