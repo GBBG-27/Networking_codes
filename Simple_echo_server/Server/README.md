@@ -18,7 +18,7 @@ it will be printed out and then send it back while printing
 
 the number of bytes sent.Data can be sent and received continuously.
 
-The server will run forever unless nanually stopped.With a connection made,
+The server will run forever unless manually stopped.With a connection made,
 
 data can be exchanged,when the client closes its connection or aborts,it will be
 
