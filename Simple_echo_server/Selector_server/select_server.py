@@ -16,8 +16,8 @@ import socket , selectors
 
 try: # catching errors and exceptions
 
-     host_n = input('Hostname: ') # Hostname
-     port_n = int(input('Port: ')) # Port number
+     host_n = input('Hostname: ') #  Hostname
+     port_n = int(input('Port: ')) #  Port number
 
 except ValueError:
     
