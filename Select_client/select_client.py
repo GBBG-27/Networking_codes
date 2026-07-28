@@ -104,7 +104,7 @@ def monitoring_process():
                                                 if recv_data:
                            
                                                                decode_recv_data = recv_data.decode()
-                                                               print(f'>> Received: {decode_recv_data}')
+                                                               print(f'\n{decode_recv_data}')
                                                                selector.modify(sock , selectors.EVENT_WRITE , data='write')
                            
                                                 else:
